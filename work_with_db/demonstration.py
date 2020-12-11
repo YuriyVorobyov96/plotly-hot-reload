@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -21,8 +15,6 @@ connection = sqlite3.connect('shows.db', check_same_thread=False)
 cursor = connection.cursor()
 
 number_of_sensors = 7
-
-# df = pd.read_csv('./new_csv_export.csv')
 
 app.layout = html.Div([
 
@@ -92,9 +84,6 @@ def update_graph(option_slctd, times_clicked):
 
 if __name__ == '__main__':
     app.run_server()
-
-
-# In[ ]:
 
 
 

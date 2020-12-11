@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import numpy as np
 import time
 import datetime
@@ -31,15 +25,13 @@ def rescale(value, old_min, old_max, new_min, new_max):
 
 rsa_decoder.generate_keys()
 
-# (key_pub, key_priv) = rsa.newkeys(512)
-
 while 1:
     time.sleep(5)
     # датчик контроля протечек
     leakage_sensor = np.random.binomial(10, 0.5)
     leakage_sensor = rescale(leakage_sensor, 0, 10, 0, 1)
     leakage_sensor_1 = round(leakage_sensor)
-    # датчик задымления !!!
+    # датчик задымления
     smoke_sensor = np.random.gumbel(0, 1)
     smoke_sensor = rescale(smoke_sensor, -5, 6, 0, 1)
     smoke_sensor_1 = round(smoke_sensor)
@@ -61,22 +53,7 @@ while 1:
     opening_sensor_1 = round(opening_sensor)
 
     data_now = datetime.datetime.now()
-#     moreShows = [(data_now,
-#                 rsa.encrypt((str(leakage_sensor_1)).encode('utf8'), key_pub),
-#                 rsa.encrypt((str(smoke_sensor_1)).encode('utf8'), key_pub),
-#                 rsa.encrypt((str(gas_leak_sensor)).encode('utf8'), key_pub),
-#                 rsa.encrypt((str(temp_sensor)).encode('utf8'), key_pub),
-#                 rsa.encrypt((str(humidity_sensor)).encode('utf8'), key_pub),
-#                 rsa.encrypt((str(motion_sensor_1)).encode('utf8'), key_pub),
-#                 rsa.encrypt((str(opening_sensor_1)).encode('utf8'), key_pub))]
-#     moreShows = [(data_now,
-#                 leakage_sensor_1,
-#                 smoke_sensor_1,
-#                 gas_leak_sensor,
-#                 temp_sensor,
-#                 humidity_sensor,
-#                 motion_sensor_1,
-#                 opening_sensor_1)]
+
     moreShows = [(rsa_decoder.encode(data_now),
                 rsa_decoder.encode(leakage_sensor_1),
                 rsa_decoder.encode(smoke_sensor_1),
@@ -93,12 +70,6 @@ while 1:
     cursor.execute("SELECT * FROM Shows")
     results = cursor.fetchall()
     print(results)
-    
-#     
-#     cursor.close()
-
-
-# In[ ]:
 
 
 
